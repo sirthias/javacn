@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="listo" default="jar">
+
+    <!-- can be overridden at the command line with -Dversion= -->
+    <property name="version" value="snapshot"/>
+
+    <path id="compile.classpath">
+        <pathelement location="lib/ant.jar"/>
+        <pathelement location="lib/asm-3.2.jar"/>
+    </path>
+
+    <target name="clean" description="Remove all generated files">
+        <delete dir="build"/>
+    </target>
+
+    <target name="compile" description="Compile sources">
+        <mkdir dir="build/classes"/>
+        <javac debug="on" destdir="build/classes" source="1.5" target="1.5" encoding="utf8">
+            <src location="src"/>
+            <classpath refid="compile.classpath"/>
+            <compilerarg line="-Xlint:all"/>
+        </javac>
+    </target>
+
+    <target name="manifest">
+        <mkdir dir="build/META-INF"/>
+        <copy file="LICENSE" todir="build/META-INF"/>
+        <copy file="NOTICE" todir="build/META-INF"/>
+        <manifest file="build/META-INF/MANIFEST.MF">
+            <attribute name="Built-By" value="${user.name}"/>
+            <attribute name="Specification-Title" value="javacn"/>
+            <attribute name="Specification-Version" value="${version}"/>
+            <attribute name="Specification-Vendor" value="parboiled.org"/>
+            <attribute name="Implementation-Title" value="javacn"/>
+            <attribute name="Implementation-Version" value="${version}"/>
+            <attribute name="Implementation-Vendor" value="parboiled.org"/>
+            <attribute name="Bundle-License" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
+            <attribute name="Bundle-Version" value="${version}"/>
+            <attribute name="Bundle-Description"
+                       value="javacn, ant task for instrumentation of java classes to include @NotNull/@NonNull assertions"/>
+            <attribute name="Bundle-Name" value="javacn"/>
+            <attribute name="Bundle-DocURL" value="http://github.com/sirthias/javacn"/>
+            <attribute name="Bundle-Vendor" value="parboiled.org"/>
+            <attribute name="Bundle-SymbolicName" value="org.parboiled.javacn"/>
+        </manifest>
+    </target>
+
+    <target name="jar" depends="compile, manifest" description="Build jar">
+        <jar destfile="build/javacn-${version}.jar" manifest="build/META-INF/MANIFEST.MF">
+            <fileset dir="build/classes"/>
+            <fileset dir="build" includes="META-INF/*"/>
+        </jar>
+    </target>
+
+</project>

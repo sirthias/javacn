@@ -1,0 +1,4 @@
+org.parboiled.ant.Javacn (http://github.com/sirthias/javacn)
+
+This software is nothing more than a slightly modified and stripped down
+version of javac2 by JetBrains s.r.o. (http://www.jetbrains.net) 
