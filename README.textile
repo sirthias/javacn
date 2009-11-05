@@ -7,24 +7,21 @@ When you use *javacn* instead of _javac_ your java source files will not only be
 The package name of the annotations does not matter, you can use any annotation implementation as long as its simple name is either *NotNull* or *NonNull* (this of course includes _org.jetbrains.annotations.NotNull_, which is the implementation that will even yield similar assertion code when used from within the "IntelliJ IDEA IDE":http://www.jetbrains.com/idea/).
 
 Consider the following code snippet:
-<pre>
-public void raiseSalary(@NotNull Employee employee, int percent) {
+bc. public void raiseSalary(@NotNull Employee employee, int percent) {
     Money currentSalary = employee.getCurrentSalary();
     ...
 }
-</pre>
 
 Normally this method would throw an NPE when called with _null_ for the first parameter.
 When compiled with *javacn* however, you would get an exception like the following and the actual method code
 would not even be executed.
 
-<pre>
-java.lang.IllegalArgumentException: 1st argument of method com.company.Project.raiseSalary(...)
+bc. java.lang.IllegalArgumentException: 1st argument of method com.company.Project.raiseSalary(...)
         corresponds to @NotNull parameter and must not be null
 
         at com.company.Project.raiseSalary.parse(Project.java)
         at ....
-</pre>
+
 
 A similar exception will be raised when a method carrying a *@NotNull* / *@NonNull* annotation returns a _null_ value.
 
@@ -32,29 +29,25 @@ A similar exception will be raised when a method carrying a *@NotNull* / *@NonNu
 h3. Usage
 
 *javacn* has a dependency on "ASM":http://asm.ow2.org version 3.
-Therefore your ANT build file should include a <code>taskdef</code> like the following:
+Therefore your ANT build file should include a @taskdef@ like the following:
 
-<pre>
-<taskdef name="javacn" classname="org.parboiled.ant.Javacn">
+bc. <taskdef name="javacn" classname="org.parboiled.ant.Javacn">
     <classpath>
         <pathelement location="lib/javacn/asm-3.2.jar"/>
         <pathelement location="lib/javacn/javacn.jar"/>
     </classpath>
 </taskdef>
-</pre>
 
 where the path to the jars has to be adapted to your project structure.
 
 You can then use *javacn* just as you would use *javac*:
 
-<pre>
-<target name="compile" description="Compile java sources">
+bc. <target name="compile" description="Compile java sources">
     <javacn debug="on" destdir="build/classes" source="1.5" target="1.5" encoding="utf8">
         <src location="src"/>
         ...
     </javacn>
 </target>
-</pre>
 
 Please let me know if you find any issues with *javacn*.
 
