@@ -1,19 +1,12 @@
 h1. javacn
 
-*javacn* is a stripped down and slightly modified version of _com.jetbrains.ant.Javac2_.
-It provides an ANT task that serves as a drop-in replacement for the standard _javac_ task.
+*javacn* is a stripped down and slightly modified version of _com.jetbrains.ant.Javac2_. It provides an ANT task that serves as a drop-in replacement for the standard _javac_ task.
 
-When you use *javacn* instead of _javac_ your java source files will not only be compiled to _.class_ files,
-but will also contain assertion code for all *@NotNull* and *@NonNull* annotations on reference type method parameters
-as well as methods returning a reference type.
+When you use *javacn* instead of _javac_ your java source files will not only be compiled to _.class_ files, but will also contain assertion code for all *@NotNull* and *@NonNull* annotations on reference type method parameters as well as methods returning a reference type.
 
-The package name of the annotations does not matter, you can use any annotation implementation as long as its
-simple name is either *NotNull* or *NonNull* (this of course includes org.jetbrains.annotations.NotNull, which is the
-implementation that will even yield similar assertion code when used from within the
-"IntelliJ IDEA IDE":http://www.jetbrains.com/idea/).
+The package name of the annotations does not matter, you can use any annotation implementation as long as its simple name is either *NotNull* or *NonNull* (this of course includes _org.jetbrains.annotations.NotNull_, which is the implementation that will even yield similar assertion code when used from within the "IntelliJ IDEA IDE":http://www.jetbrains.com/idea/).
 
 Consider the following code snippet:
-<pre>
 <code>
   ...
   public void raiseSalary(@NotNull Employee employee, int percent) {
@@ -22,16 +15,18 @@ Consider the following code snippet:
   }
   ...
 </code>
-</pre>
 
 Normally this method would throw an NPE when called with _null_ for the first parameter.
 When compiled with *javacn* however, you would get an exception like the following and the actual method code
 would not even be executed.
 
-<pre>
-    java.lang.IllegalArgumentException: 1st argument of method com.company.Project.raiseSalary(...) corresponds to @NotNull parameter and must not be null
-	        at ...
-</pre>
+<code>
+    java.lang.IllegalArgumentException: 1st argument of method com.company.Project.raiseSalary(...)
+            corresponds to @NotNull parameter and must not be null
+
+	        at com.company.Project.raiseSalary.parse(Project.java)
+            at ....
+</code>
 
 A similar exception will be raised when a method carrying a *@NotNull* / *@NonNull* annotation returns a _null_ value.
 
@@ -39,38 +34,29 @@ A similar exception will be raised when a method carrying a *@NotNull* / *@NonNu
 h3. Usage
 
 *javacn* has a dependency on "ASM":http://asm.ow2.org version 3.
+Therefore your ANT build file should include a <code>taskdef</code> like the following:
 
-Your ANT build file might include a <code>taskdef</code> like the following:
-
-<pre>
 <code>
-<![CDATA[
     <taskdef name="javacn" classname="org.parboiled.ant.Javacn">
         <classpath>
             <pathelement location="lib/javacn/asm-3.2.jar"/>
             <pathelement location="lib/javacn/javacn.jar"/>
         </classpath>
     </taskdef>
-]]>
 </code>
-</pre>
 
-where the path to the jars has to of course be adapted to your project structure.
+where the path to the jars has to be adapted to your project structure.
 
 You can then use *javacn* just as you would use *javac*:
 
-<pre>
 <code>
-<![CDATA[
     <target name="compile" description="Compile java sources">
         <javacn debug="on" destdir="build/classes" source="1.5" target="1.5" encoding="utf8">
             <src location="src"/>
             ...
         </javacn>
     </target>
-]]>
 </code>
-</pre>
 
 Please let me know if you find any issues with *javacn*.
 
