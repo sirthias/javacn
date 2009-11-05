@@ -21,14 +21,14 @@ bc. public void raiseSalary(@NotNull Employee employee, int percent) {
 Normally this method would throw an NPE when called with _null_ for the first parameter.
 When compiled with *javacn* however, you would get an exception like the following and the actual method code would not even be executed.
 
-bc. java.lang.IllegalArgumentException: 1st argument of method com.company.Project.raiseSalary(...)
+bc.. java.lang.IllegalArgumentException: 1st argument of method com.company.Project.raiseSalary(...)
         corresponds to @NotNull parameter and must not be null
 
         at com.company.Project.raiseSalary.parse(Project.java)
         at ....
 
 
-A similar exception will be raised when a method carrying a *@NotNull* / *@NonNull* annotation returns a _null_ value.
+p. A similar exception will be raised when a method carrying a *@NotNull* / *@NonNull* annotation returns a _null_ value.
 
 
 h3. Usage
