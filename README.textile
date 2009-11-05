@@ -8,12 +8,10 @@ The package name of the annotations does not matter, you can use any annotation 
 
 Consider the following code snippet:
 <pre>
-..
 public void raiseSalary(@NotNull Employee employee, int percent) {
     Money currentSalary = employee.getCurrentSalary();
-    ..
+    ...
 }
-..
 </pre>
 
 Normally this method would throw an NPE when called with _null_ for the first parameter.
