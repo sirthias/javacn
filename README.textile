@@ -8,12 +8,12 @@ The package name of the annotations does not matter, you can use any annotation 
 
 Consider the following code snippet:
 <pre>
-  ...
-  public void raiseSalary(@NotNull Employee employee, int percent) {
+...
+public void raiseSalary(@NotNull Employee employee, int percent) {
     Money currentSalary = employee.getCurrentSalary();
     ...
-  }
-  ...
+}
+...
 </pre>
 
 Normally this method would throw an NPE when called with _null_ for the first parameter.
@@ -21,11 +21,11 @@ When compiled with *javacn* however, you would get an exception like the followi
 would not even be executed.
 
 <pre>
-    java.lang.IllegalArgumentException: 1st argument of method com.company.Project.raiseSalary(...)
-            corresponds to @NotNull parameter and must not be null
+java.lang.IllegalArgumentException: 1st argument of method com.company.Project.raiseSalary(...)
+        corresponds to @NotNull parameter and must not be null
 
-	        at com.company.Project.raiseSalary.parse(Project.java)
-            at ....
+        at com.company.Project.raiseSalary.parse(Project.java)
+        at ....
 </pre>
 
 A similar exception will be raised when a method carrying a *@NotNull* / *@NonNull* annotation returns a _null_ value.
@@ -37,12 +37,12 @@ h3. Usage
 Therefore your ANT build file should include a <code>taskdef</code> like the following:
 
 <pre>
-    <taskdef name="javacn" classname="org.parboiled.ant.Javacn">
-        <classpath>
-            <pathelement location="lib/javacn/asm-3.2.jar"/>
-            <pathelement location="lib/javacn/javacn.jar"/>
-        </classpath>
-    </taskdef>
+<taskdef name="javacn" classname="org.parboiled.ant.Javacn">
+    <classpath>
+        <pathelement location="lib/javacn/asm-3.2.jar"/>
+        <pathelement location="lib/javacn/javacn.jar"/>
+    </classpath>
+</taskdef>
 </pre>
 
 where the path to the jars has to be adapted to your project structure.
@@ -50,12 +50,12 @@ where the path to the jars has to be adapted to your project structure.
 You can then use *javacn* just as you would use *javac*:
 
 <pre>
-    <target name="compile" description="Compile java sources">
-        <javacn debug="on" destdir="build/classes" source="1.5" target="1.5" encoding="utf8">
-            <src location="src"/>
-            ...
-        </javacn>
-    </target>
+<target name="compile" description="Compile java sources">
+    <javacn debug="on" destdir="build/classes" source="1.5" target="1.5" encoding="utf8">
+        <src location="src"/>
+        ...
+    </javacn>
+</target>
 </pre>
 
 Please let me know if you find any issues with *javacn*.
