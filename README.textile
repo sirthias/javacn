@@ -1,10 +1,15 @@
 h1. javacn
 
-*javacn* is a stripped down and slightly modified version of _com.jetbrains.ant.Javac2_. It provides an ANT task that serves as a drop-in replacement for the standard _javac_ task.
+*javacn* is a stripped down and slightly modified version of _com.jetbrains.ant.Javac2_.
+It provides an ANT task that serves as a drop-in replacement for the standard _javac_ task.
 
-When you use *javacn* instead of _javac_ your java source files will not only be compiled to _.class_ files, but will also contain assertion code for all *@NotNull* and *@NonNull* annotations on reference type method parameters as well as methods returning a reference type.
+When you use *javacn* instead of _javac_ your java source files will not only be compiled to _.class_ files,
+but will also contain assertion code for all *@NotNull* and *@NonNull* annotations on reference type method parameters
+as well as methods returning a reference type.
 
-The package name of the annotations does not matter, you can use any annotation implementation as long as its simple name is either *NotNull* or *NonNull* (this of course includes _org.jetbrains.annotations.NotNull_, which is the implementation that will even yield similar assertion code when used from within the "IntelliJ IDEA IDE":http://www.jetbrains.com/idea/).
+The package name of the annotations does not matter, you can use any annotation implementation as long as
+its simple name is either *NotNull* or *NonNull* (this of course includes _org.jetbrains.annotations.NotNull_,
+which is the implementation that will even yield similar assertion code when used from within the "IntelliJ IDEA IDE":http://www.jetbrains.com/idea/).
 
 Consider the following code snippet:
         
@@ -14,8 +19,7 @@ bc. public void raiseSalary(@NotNull Employee employee, int percent) {
 }
 
 Normally this method would throw an NPE when called with _null_ for the first parameter.
-When compiled with *javacn* however, you would get an exception like the following and the actual method code
-would not even be executed.
+When compiled with *javacn* however, you would get an exception like the following and the actual method code would not even be executed.
 
 bc. java.lang.IllegalArgumentException: 1st argument of method com.company.Project.raiseSalary(...)
         corresponds to @NotNull parameter and must not be null
