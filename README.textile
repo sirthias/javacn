@@ -7,6 +7,7 @@ When you use *javacn* instead of _javac_ your java source files will not only be
 The package name of the annotations does not matter, you can use any annotation implementation as long as its simple name is either *NotNull* or *NonNull* (this of course includes _org.jetbrains.annotations.NotNull_, which is the implementation that will even yield similar assertion code when used from within the "IntelliJ IDEA IDE":http://www.jetbrains.com/idea/).
 
 Consider the following code snippet:
+        
 bc. public void raiseSalary(@NotNull Employee employee, int percent) {
     Money currentSalary = employee.getCurrentSalary();
     ...
