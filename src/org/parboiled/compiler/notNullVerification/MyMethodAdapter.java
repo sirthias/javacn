@@ -48,6 +48,7 @@ class MyMethodAdapter extends MethodAdapter {
         myIsNotNull = false;
     }
 
+    @Override
     public AnnotationVisitor visitParameterAnnotation(int parameter, String anno, boolean visible) {
         AnnotationVisitor av = mv.visitParameterAnnotation(parameter, anno, visible);
         if (isNotNull(anno)) {
@@ -62,6 +63,7 @@ class MyMethodAdapter extends MethodAdapter {
         return av;
     }
 
+    @Override
     public AnnotationVisitor visitAnnotation(String anno, boolean isRuntime) {
         AnnotationVisitor av = mv.visitAnnotation(anno, isRuntime);
         if (isNotNull(anno)) {
@@ -76,6 +78,7 @@ class MyMethodAdapter extends MethodAdapter {
         return av;
     }
 
+    @Override
     public void visitCode() {
         if (myNotNullParams.size() > 0) {
             myStartGeneratedCodeLabel = new Label();
@@ -110,6 +113,7 @@ class MyMethodAdapter extends MethodAdapter {
         }
     }
 
+    @Override
     public void visitLocalVariable(String name, String desc, String signature, Label start, Label end, int index) {
         boolean isStatic = (access & Opcodes.ACC_STATIC) != 0;
         boolean isParameter = isStatic ? index < args.length : index <= args.length;
@@ -118,6 +122,7 @@ class MyMethodAdapter extends MethodAdapter {
                 index);
     }
 
+    @Override
     public void visitInsn(int opcode) {
         if (opcode == Opcodes.ARETURN && myIsNotNull) {
             mv.visitInsn(Opcodes.DUP);
@@ -153,6 +158,7 @@ class MyMethodAdapter extends MethodAdapter {
         instrumenter.myIsModification = true;
     }
 
+    @Override
     public void visitMaxs(int maxStack, int maxLocals) {
         try {
             super.visitMaxs(maxStack, maxLocals);
@@ -168,7 +174,10 @@ class MyMethodAdapter extends MethodAdapter {
     }
 
     private static boolean isNotNull(String anno) {
-        return anno.endsWith("/NotNull;") || anno.endsWith("/NonNull;");
+        return anno.endsWith("/NotNull;") ||
+                anno.endsWith("/NonNull;") ||
+                anno.endsWith("/Notnull;") ||
+                anno.endsWith("/Nonnull;");
     }
 
 }

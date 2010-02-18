@@ -58,56 +58,67 @@ public class Javacn extends Javac {
         }
     }
 
+    @Override
     public void setDebugLevel(String v) {
         logErrorIfNotCompiling("debugLevel");
         super.setDebugLevel(v);
     }
 
+    @Override
     public void setListfiles(boolean list) {
         logErrorIfNotCompiling("listFiles");
         super.setListfiles(list);
     }
 
+    @Override
     public void setMemoryInitialSize(String memoryInitialSize) {
         logErrorIfNotCompiling("memoryInitialSize");
         super.setMemoryInitialSize(memoryInitialSize);
     }
 
+    @Override
     public void setMemoryMaximumSize(String memoryMaximumSize) {
         logErrorIfNotCompiling("memoryMaximumSize");
         super.setMemoryMaximumSize(memoryMaximumSize);
     }
 
+    @Override
     public void setEncoding(String encoding) {
         logErrorIfNotCompiling("encoding");
         super.setEncoding(encoding);
     }
 
+    @Override
     public void setOptimize(boolean optimize) {
         logErrorIfNotCompiling("optimize");
         super.setOptimize(optimize);
     }
 
+    @Override
     public void setDepend(boolean depend) {
         logErrorIfNotCompiling("depend");
         super.setDepend(depend);
     }
 
+    @Override
     public void setFork(boolean f) {
         logErrorIfNotCompiling("fork");
         super.setFork(f);
     }
 
+    @Override
     public void setExecutable(String forkExec) {
         logErrorIfNotCompiling("executable");
         super.setExecutable(forkExec);
     }
 
+    @Override
     public void setCompiler(String compiler) {
         logErrorIfNotCompiling("compiler");
         super.setCompiler(compiler);
     }
 
+    @Override
     protected void compile() {
         if (compiling()) {
             // compile only if required

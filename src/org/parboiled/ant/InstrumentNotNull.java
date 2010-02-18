@@ -28,6 +28,7 @@ public class InstrumentNotNull extends Javacn {
      * @return false, meaning that java classes are not compiled
      * @see Javacn#compiling()
      */
+    @Override
     protected boolean compiling() {
         return false;
     }

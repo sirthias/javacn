@@ -4,12 +4,13 @@ h1. javacn
 It provides an ANT task that serves as a drop-in replacement for the standard _javac_ task.
 
 When you use *javacn* instead of _javac_ your java source files will not only be compiled to _.class_ files,
-but will also contain assertion code for all *@NotNull* and *@NonNull* annotations on reference type method parameters
+but will also contain assertion code for all *@NotNull/@NonNnull* annotations on reference type method parameters
 as well as methods returning a reference type.
 
 The package name of the annotations does not matter, you can use any annotation implementation as long as
-its simple name is either *NotNull* or *NonNull* (this of course includes _org.jetbrains.annotations.NotNull_,
-which is the implementation that will even yield similar assertion code when used from within the "IntelliJ IDEA IDE":http://www.jetbrains.com/idea/).
+its simple name is either *NotNull*, *NonNull*, *Notnull* or *Nonnull* (this includes _org.jetbrains.annotations.NotNull_,
+which is the implementation that will even yield similar assertion code when used from within the "IntelliJ IDEA IDE":http://www.jetbrains.com/idea/,
+as well as _javax.annotation.Nonnull_ from JSR-305).
 
 Consider the following code snippet:
         

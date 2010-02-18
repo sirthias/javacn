@@ -36,6 +36,7 @@ public class AntClassWriter extends ClassWriter {
         myClassLoader = classLoader;
     }
 
+    @Override
     protected String getCommonSuperClass(String type1, String type2) {
         Class<?> c;
         Class<?> d;
